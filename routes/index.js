@@ -1,8 +1,9 @@
 const express = require("express");
-const app = express();
+//const app = express();
 const router = express.Router();
-app.set("view engine","ejs");
+//app.set("view engine","ejs");
 const isLoggedIn = require("../middlewares/isLoggedIn")
+
 
 router.get('/', (req, res) => {
     // Assuming error is fetched from some logic or validation
@@ -11,7 +12,7 @@ router.get('/', (req, res) => {
 });
 
 router.get("/shop",isLoggedIn,function(req,res){
-    res.render("shop");
+    res.render('shop');
 });
 
 
