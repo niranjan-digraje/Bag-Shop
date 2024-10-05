@@ -8,6 +8,8 @@ const db = require("./config/mongoose-connection"); //database connected
 const ownersRouter = require("./routes/ownersRouter");
 const usersRouter = require("./routes/usersRouter");
 const productsRouter = require("./routes/productsRouter");
+const index = require("./routes/index");
+require("dotenv").config();
 
 //--------------------------------------------------------------------------------------------------------------------------
 
@@ -26,12 +28,13 @@ app.set("view engine","ejs");
 app.use("/owners",ownersRouter);
 app.use("/users",usersRouter);
 app.use("/products",productsRouter);
+app.use("/",index)
 
 //--------------------------------------------------------------------------------------------------------------------------
 
 // *******Server*******
 
-app.listen(3000,(req,res)=>{
+app.listen(3000,function (req,res){
     console.log("Server Start...");
 });
 

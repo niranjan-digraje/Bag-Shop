@@ -1,12 +1,15 @@
 const mongoose = require("mongoose");
+const config = require("config");
+const dbgr = require("debug")("development:mongoose");
 
 mongoose
-.connect("mongodb://127.0.0.1:27017/bagshop")   //monogdb chya url pekshya aapan any dynamic db chi url paste karu shakato e.g.cloud
+.connect(`${config.get("MONGODB_URI")}/bagshop`)   //monogdb chya url pekshya aapan any dynamic db chi url paste karu shakato e.g.cloud
 .then(function(){
-    console.log("DB-Connected...");
+    dbgr("DB-Connected...");
+    //console.log("DB Connected...");
 })
 .catch(function(err){
-    console.log(err);
+    dbgr(err);
 });
 
 module.exports = mongoose.connection;
