@@ -2,6 +2,10 @@ const userModel = require("../models/user-model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { generateToken } = require("../utils/generateToken");
+const express = require("express");
+const app = express();
+app.set("view engine","ejs");
+const Product = require('../models/product-model');
 
 module.exports.registerUser = async function(req,res){
     try{
@@ -43,13 +47,13 @@ module.exports.loginUser = async function(req,res){
     if(!user){
         return res.send("Email or Password incorrect");
     }
-    bcrypt.compare(password,user.password,function(err,result){
+    bcrypt.compare(password,user.password,async function(err,result){
         //res.send(result);
         if(result){
             let token = generateToken(user);
             res.cookie("token",token);
-            res.send("LOGin");
-            //res.render("shop");
+            const products = await Product.find(); // Assuming you're fetching products from a database
+            res.render('shop', { products });
         }else{
             res.redirect("/");
         }
